@@ -14,6 +14,7 @@ class Lcd : public Display {
         void updateAlarmState(PowerState state);
         void updateHeatState(PowerState state);
         void updateHeatTemp(int temp);
+        void showAlarmAlertMsg();
         void clear();
 };
 

@@ -36,6 +36,13 @@ void Lcd::updateHeatTemp(int temp) {
     this->lcd->print((char)DEGREE_SYMBOL_ASCII);
 }
 
+void Lcd::showAlarmAlertMsg() {
+    this->lcd->setCursor(0,0);
+    this->lcd->print("!!!ATTENZIONE!!!");
+    this->lcd->setCursor(0,1);
+    this->lcd->print("RILEVATO INTRUSO");
+}
+
 void Lcd::clear() {
     this->lcd->clear();
 }

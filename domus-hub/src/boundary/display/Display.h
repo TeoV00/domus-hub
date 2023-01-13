@@ -8,6 +8,7 @@ class Display {
         virtual void updateAlarmState(PowerState state) = 0;
         virtual void updateHeatState(PowerState state) = 0;
         virtual void updateHeatTemp(int temp) = 0;
+        virtual void showAlarmAlertMsg();
 };
 
 #endif
