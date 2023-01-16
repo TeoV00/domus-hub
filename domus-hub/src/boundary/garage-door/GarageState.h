@@ -5,7 +5,9 @@ enum GarageState {
     CLOSE,
     OPEN,
     CLOSING,
-    OPENING
+    OPENING,
+    CLOSING_P, //closing in pause
+    OPENING_P, //opening in pause
 };
 
 #endif
