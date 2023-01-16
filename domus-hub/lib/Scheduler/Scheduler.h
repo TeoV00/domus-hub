@@ -1,7 +1,7 @@
 #ifndef __SCHED__
 #define __SCHED__
 
-#include "Task/AbstractTaskClass.h"
+#include "Task.h"
 
 #define MAX_TASK 6
 
