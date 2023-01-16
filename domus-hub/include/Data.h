@@ -12,7 +12,7 @@ struct Data {
     bool moveDetected; //flag to keep info of any movement detection while alarm is active
     PowerState heatSysPwr; //heating system power
     unsigned char heatTemp; // selected heating system temperature 
-    GarageState garageDoor;
+    GarageState garageState;
 };
 
 #endif

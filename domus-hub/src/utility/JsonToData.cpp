@@ -12,7 +12,7 @@
   "moveDetected": true,
   "heatSysPwr": 0,
   "heatTemp": 20,
-  "garageDoor": 0
+  "garageState": 0
 }
 */
 void jsonToData(String json, Data* data) {
@@ -27,6 +27,6 @@ void jsonToData(String json, Data* data) {
         data->moveDetected = doc["moveDetected"]; // true
         data->heatSysPwr = doc["heatSysPwr"]; // 0
         data->heatTemp = doc["heatTemp"]; // 20
-        data->garageDoor = doc["garageDoor"]; // 0
+        data->garageState = doc["garageState"]; // 0
     }
 }
