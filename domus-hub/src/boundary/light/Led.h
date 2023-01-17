@@ -8,7 +8,7 @@ public:
   Led(int pin);
   void switchOn();
   void switchOff();    
-private:
+protected:
   int pin;  
 };
 
