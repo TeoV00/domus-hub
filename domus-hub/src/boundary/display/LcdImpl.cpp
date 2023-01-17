@@ -5,7 +5,8 @@
 #include "PowerState.h"
 
 #define DEGREE_SYMBOL_ASCII 223
-
+#define ON_MSG "ON "  //the whitespace is needed in order to cancel last F of word OFF
+#define OFF_MSG "OFF"
 Lcd::Lcd() {
 }
 
@@ -19,14 +20,14 @@ void Lcd::updateAlarmState(PowerState alarmState) {
     this->lcd->setCursor(0,0);
     this->lcd->print("Alarm:");
     this->lcd->setCursor(7,0);
-    this->lcd->print(alarmState == PowerState::ON ? "ON" : "OFF");
+    this->lcd->print(alarmState == PowerState::ON ? ON_MSG : OFF_MSG);
 }
 
 void Lcd::updateHeatState(PowerState heatState) {
     this->lcd->setCursor(0,1);
     this->lcd->print("Heating:");
     this->lcd->setCursor(8,1);
-    this->lcd->print(heatState == PowerState::ON ? "ON" : "OFF");
+    this->lcd->print(heatState == PowerState::ON ? ON_MSG : OFF_MSG);
 }
 
 void Lcd::updateHeatTemp(int temp) {
@@ -38,7 +39,7 @@ void Lcd::updateHeatTemp(int temp) {
 
 void Lcd::showAlarmAlertMsg() {
     this->lcd->setCursor(0,0);
-    this->lcd->print("!!!ATTENZIONE!!!");
+    this->lcd->print("!! ATTENZIONE !!");
     this->lcd->setCursor(0,1);
     this->lcd->print("RILEVATO INTRUSO");
 }

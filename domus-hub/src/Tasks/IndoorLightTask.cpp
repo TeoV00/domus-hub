@@ -22,7 +22,7 @@ void IndoorLightTask::updateLight() {
     if (this->homeState->inLight == PowerState::OFF) {
         this->light->switchOff();
     } else if (this->homeState->inLight == PowerState::ON) {
-        this->light->switchOff();
+        this->light->switchOn();
     }
 }
 
