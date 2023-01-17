@@ -1,4 +1,4 @@
-#include "Data.h"
+#include "HomeState.h"
 #include <stdlib.h>
 #include <string.h>
 #include  <ArduinoJson.h>
@@ -15,18 +15,18 @@
   "garageState": 0
 }
 */
-void jsonToData(String json, Data* data) {
+void jsonToData(String json, HomeState* homeState) {
     StaticJsonDocument<64> doc;
     DeserializationError error = deserializeJson(doc, json);
 
     if (!error) {
-        data->inLight = doc["inLight"]; // 0
-        data->outLight = doc["outLight"]; // 0
-        data->alarmLight = doc["alarmLight"]; // 0
-        data->alarmPwr = doc["alarmPwr"]; // 0
-        data->moveDetected = doc["moveDetected"]; // true
-        data->heatSysPwr = doc["heatSysPwr"]; // 0
-        data->heatTemp = doc["heatTemp"]; // 20
-        data->garageState = doc["garageState"]; // 0
+        homeState->inLight = doc["inLight"]; // 0
+        homeState->outLight = doc["outLight"]; // 0
+        homeState->alarmLight = doc["alarmLight"]; // 0
+        homeState->alarmPwr = doc["alarmPwr"]; // 0
+        homeState->moveDetected = doc["moveDetected"]; // true
+        homeState->heatSysPwr = doc["heatSysPwr"]; // 0
+        homeState->heatTemp = doc["heatTemp"]; // 20
+        homeState->garageState = doc["garageState"]; // 0
     }
 }

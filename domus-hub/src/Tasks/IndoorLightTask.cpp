@@ -1,10 +1,12 @@
 
 #include "Task.h"
 #include "Tasks/IndoorLightTask.h"
+#include "boundary/light/Led.h"
+#include "PinSetup.h"
 
-IndoorLightTask::IndoorLightTask(PowerState* lightState, Light* indoorLight) {
-    this->lightState = lightState;
-    this->light = indoorLight;
+IndoorLightTask::IndoorLightTask(HomeState* homeState) {
+    this->homeState = homeState;
+    this->light = new Led(INDOOR_LIGHT_PIN);
     this->updateLight();
 }
 
@@ -17,9 +19,9 @@ void IndoorLightTask::tick() {
 }
 
 void IndoorLightTask::updateLight() {
-    if (*this->lightState == PowerState::OFF) {
+    if (this->homeState->inLight == PowerState::OFF) {
         this->light->switchOff();
-    } else if (*this->lightState == PowerState::ON) {
+    } else if (this->homeState->inLight == PowerState::ON) {
         this->light->switchOff();
     }
 }

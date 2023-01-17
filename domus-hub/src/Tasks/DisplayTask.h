@@ -2,17 +2,17 @@
 #define __DISPLAY_TASK__
 
 #include "Task.h"
-#include "Data.h"
+#include "HomeState.h"
 #include "boundary/display/Display.h"
 
 class DisplayTask : public Task {
     private:
         Display* display;
-        Data* data;
+        HomeState* homeState;
         void updateDisplay();
 
     public:
-        DisplayTask(Data* data);
+        DisplayTask(HomeState* homeState);
         void init(int timeoutExec);
         void tick();
 };

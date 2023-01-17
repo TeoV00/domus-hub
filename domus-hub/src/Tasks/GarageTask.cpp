@@ -2,9 +2,9 @@
 #include "GarageTask.h"
 #include "boundary/garage-door/GarageDoor.h"
 
-GarageTask::GarageTask(Data* data) {
+GarageTask::GarageTask(HomeState* homeState) {
     this->garageDoor = new GarageDoor();
-    this->data = data;
+    this->homeState = homeState;
 }
 
 void GarageTask::init(int timeoutExec) {
@@ -12,7 +12,7 @@ void GarageTask::init(int timeoutExec) {
 }
 
 void GarageTask::tick() {
-    GarageState state = this->data->garageState;
+    GarageState state = this->homeState->garageState;
     if(state == REQ_OPEN) {
         this->garageDoor->open();
     } else if(state == REQ_CLOSE) {

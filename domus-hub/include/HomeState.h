@@ -4,7 +4,7 @@
 #include "PowerState.h"
 #include "boundary/garage-door/GarageState.h"
 
-struct Data {
+struct HomeState {
     PowerState inLight; //indoor lights
     unsigned char outLight; //outdoor light
     PowerState alarmLight; //alarm light indicator
