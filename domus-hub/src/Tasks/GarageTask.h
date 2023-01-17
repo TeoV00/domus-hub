@@ -2,14 +2,15 @@
 #define __GARAGE_TASK_H__
 
 #include "Task.h"
+#include "Data.h"
 #include "boundary/garage-door/GarageDoor.h"
 
 class GarageTask: public Task{
-    GarageState* garageState;
+    Data* data;
     GarageDoor* garageDoor;
 
     public:
-        GarageTask(GarageState* garageState, GarageDoor* garageDoor);
+        GarageTask(Data* data);
         void init(int timeoutExec);
         void tick();
 
