@@ -15,7 +15,10 @@ void GarageTask::init(int timeoutExec) {
 
 void GarageTask::tick() {
     GarageState state = this->homeState->garageState;
-    if(state == GarageState::REQ_OPEN) {
+    if (this->homeState->moveDetected == true) {
+        this->garageDoor->close();
+    }
+    else if(state == GarageState::REQ_OPEN) {
         this->garageDoor->open();
     } else if(state == GarageState::REQ_CLOSE) {
         this->garageDoor->close();
