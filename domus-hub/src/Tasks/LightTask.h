@@ -3,16 +3,19 @@
 
 #include "HomeState.h"
 #include "boundary/light/Light.h"
+#include "boundary/light/DimmLight.h"
 
-class IndoorLightTask : public Task {
+class LightTask : public Task {
     HomeState* homeState;
-    Light* light;
+    Light* indoorLight;
+    Light* alarmLight;
+    DimmLight* outdoorLight;
 
     private:
         void updateLight();
 
     public:
-        IndoorLightTask(HomeState* homeState);
+        LightTask(HomeState* homeState);
         void init(int timeoutExec);
         void tick();
 };
