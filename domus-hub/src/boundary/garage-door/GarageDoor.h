@@ -2,6 +2,7 @@
 #define __GARAGE_DOOR__
 
 #include "GarageState.h"
+#include "HomeState.h"
 #include "servo_motor_impl.h"
 #include "Garage.h"
 
@@ -11,17 +12,17 @@
 class GarageDoor : public Garage {
     private:
         int doorPosition = MIN_DOOR_POS;
-        GarageState state = GarageState::CLOSE;
+        HomeState* state;
         ServoMotor* motor;
 
     public:
-        GarageDoor();
+        GarageDoor(HomeState* state);
         void open();
         void close();
         void pause();
         void updateDoor();
         GarageState getState() {
-            return this->state;
+            return this->state->garageState;
         };
 };
 
