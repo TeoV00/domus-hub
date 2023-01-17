@@ -16,14 +16,6 @@ DisplayTask* displayTask;
 IndoorLightTask* indoorLightTask;
 
 void setup() {
-    homeState.garageState = GarageState::CLOSE;
-    homeState.alarmLight = PowerState::OFF;
-    homeState.alarmPwr = PowerState::OFF;
-    homeState.heatSysPwr = PowerState::OFF;
-    homeState.heatTemp = 20;
-    homeState.inLight = PowerState::OFF;
-    homeState.outLight = 0;
-    homeState.moveDetected = false;
     Serial.begin(9600);
     sched.init(SCHED_PERIOD);
     
