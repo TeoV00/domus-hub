@@ -8,6 +8,8 @@ enum GarageState {
     OPENING,
     CLOSING_P, //closing in pause
     OPENING_P, //opening in pause
+    REQ_OPEN, //open request
+    REQ_CLOSE //close request
 };
 
 #endif

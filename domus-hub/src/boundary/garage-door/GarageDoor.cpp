@@ -59,7 +59,3 @@ void GarageDoor::pause() {
          this->state = GarageState::CLOSING;
     }
 }
-
-GarageState GarageDoor::getState() {
-    return this->state;
-}

@@ -3,23 +3,26 @@
 
 #include "GarageState.h"
 #include "servo_motor_impl.h"
+#include "Garage.h"
+
 #define MAX_DOOR_POS 180
 #define MIN_DOOR_POS 0
 
-class GarageDoor {
+class GarageDoor /*: public Garage */{
     private:
-        int doorPosition = 0;
+        int doorPosition = MIN_DOOR_POS;
         GarageState state = GarageState::CLOSE;
         ServoMotor* motor;
 
     public:
         GarageDoor();
-        virtual void open() = 0;
-        virtual void close() = 0;
-        virtual void pause() = 0;
-        virtual void updateDoor() = 0;
-        virtual GarageState getState() = 0;
-
+        void open();
+        void close();
+        void pause();
+        void updateDoor();
+        GarageState getState() {
+            return this->state;
+        };
 };
 
 #endif
