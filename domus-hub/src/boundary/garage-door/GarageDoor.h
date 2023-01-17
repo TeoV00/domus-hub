@@ -8,7 +8,7 @@
 #define MAX_DOOR_POS 180
 #define MIN_DOOR_POS 0
 
-class GarageDoor /*: public Garage */{
+class GarageDoor : public Garage {
     private:
         int doorPosition = MIN_DOOR_POS;
         GarageState state = GarageState::CLOSE;
