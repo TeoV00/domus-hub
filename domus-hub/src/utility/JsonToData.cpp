@@ -3,20 +3,8 @@
 #include <string.h>
 #include  <ArduinoJson.h>
 
-/*
-{
-  "inLight": 0,
-  "outLight": 0,
-  "alarmLight": 0,
-  "alarmPwr": 0,
-  "moveDetected": true,
-  "heatSysPwr": 0,
-  "heatTemp": 20,
-  "garageState": 0
-}
-*/
 void jsonToData(String json, HomeState* homeState) {
-    StaticJsonDocument<64> doc;
+    StaticJsonDocument<192> doc;
     DeserializationError error = deserializeJson(doc, json);
 
     if (!error) {

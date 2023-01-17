@@ -2,7 +2,7 @@
 #include <HardwareSerial.h>
 #include "Tasks/Communication/RecvDataTask.h"
 #include "HomeState.h"
-#include "utility/JsonToData.cpp"
+#include "utility/JsonToData.h"
 
 RecvDataTask::RecvDataTask(HomeState* homeState) {
     this->homeState = homeState;
