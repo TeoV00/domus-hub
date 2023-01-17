@@ -4,7 +4,7 @@
 #include "Scheduler.h"
 #include "./Tasks/GarageTask.h"
 #include "./Tasks/DisplayTask.h"
-#include "./Tasks/IndoorLightTask.h"
+#include "./Tasks/LightTask.h"
 #include "./Tasks/Communication/SendDataTask.h"
 #include "./Tasks/Communication/RecvDataTask.h"
 
@@ -14,7 +14,7 @@ HomeState homeState;
 Scheduler sched;
 GarageTask* garageTask;
 DisplayTask* displayTask;
-IndoorLightTask* indoorLightTask;
+LightTask* lightTask;
 SendDataTask* sendDataTask;
 RecvDataTask* recvDataTask;
 
@@ -31,9 +31,9 @@ void setup() {
     sched.addTask(displayTask);
     //displayTask->disable();
 
-    indoorLightTask = new IndoorLightTask(&homeState);
-    indoorLightTask->init(300);
-    sched.addTask(indoorLightTask);
+    lightTask = new LightTask(&homeState);
+    lightTask->init(300);
+    sched.addTask(lightTask);
 
     sendDataTask = new SendDataTask(&homeState);
     sendDataTask->init(1500);
