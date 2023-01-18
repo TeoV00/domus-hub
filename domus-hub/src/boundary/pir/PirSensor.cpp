@@ -1,5 +1,6 @@
-#include "PirSensor.h"
+
 #include "Arduino.h"
+#include "PirSensor.h"
 
 #define CALIBRATION_TIME_SEC 10
 

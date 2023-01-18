@@ -1,12 +1,9 @@
 #ifndef __BUTTON__
 #define __BUTTON__
 
-#include "boundary/inputs/Input.h"
-
-class Button : public Input {
+class Button {
     public: 
         virtual bool isPressed() = 0;
-        void readValue();
 };
 
 #endif

@@ -11,6 +11,7 @@
 #define SCHED_PERIOD 10
 
 HomeState homeState;
+
 Scheduler sched;
 GarageTask* garageTask;
 DisplayTask* displayTask;
@@ -19,7 +20,7 @@ SendDataTask* sendDataTask;
 RecvDataTask* recvDataTask;
 
 void setup() {
-    Serial.begin(9600);
+
     sched.init(SCHED_PERIOD);
     
     garageTask = new GarageTask(&homeState);
@@ -29,7 +30,6 @@ void setup() {
     displayTask = new DisplayTask(&homeState);
     displayTask->init(800);
     sched.addTask(displayTask);
-    //displayTask->disable();
 
     lightTask = new LightTask(&homeState);
     lightTask->init(300);
