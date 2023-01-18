@@ -2,16 +2,10 @@
 #include "Arduino.h"
 
 ButtonImpl::ButtonImpl(int pin){
-  this->pin = pin;
-  pinMode(pin, INPUT);  
-  sync();   
+    this->pin = pin;
+    pinMode(pin, INPUT);     
 } 
   
 bool ButtonImpl::isPressed(){
-  return pressed;
-}
-
-void ButtonImpl::sync(){
-  pressed = digitalRead(pin) == HIGH;
-  updateSyncTime(millis());
+    return digitalRead(pin);
 }

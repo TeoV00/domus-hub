@@ -1,18 +1,15 @@
 #ifndef __BUTTONIMPL__
 #define __BUTTONIMPL__
 
-#include "Button.h"
+#include "boundary/inputs/Input.h"
 
-class ButtonImpl: public Button {
- 
-public: 
-  ButtonImpl(int pin);
-  bool isPressed();
-  void sync();
-
-private:
-  int pin;
-  bool pressed;
+class ButtonImpl: public Input {
+    private:
+        int pin;
+        
+    public: 
+        ButtonImpl(int pin);
+        bool isPressed();
 };
 
 #endif

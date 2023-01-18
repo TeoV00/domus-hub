@@ -1,21 +1,12 @@
 #ifndef __BUTTON__
 #define __BUTTON__
 
-class Button {
- 
-public:
-  Button();
-  virtual bool isPressed() = 0;
+#include "boundary/inputs/Input.h"
 
-  virtual void sync();
-  long getLastSyncTime();
-
-protected: 
-  void updateSyncTime(long time);
-
-private:
-  long lastTimeSync;
-
+class Button : public Input {
+    public: 
+        virtual bool isPressed() = 0;
+        void readValue();
 };
 
 #endif
