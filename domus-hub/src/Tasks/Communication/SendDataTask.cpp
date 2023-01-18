@@ -9,6 +9,7 @@ SendDataTask::SendDataTask(HomeState* homeState) {
 
 void SendDataTask::init(int timeoutExec){
   Task::init(timeoutExec);
+  Serial.begin(9600);
 }
 
 void SendDataTask::tick() {
