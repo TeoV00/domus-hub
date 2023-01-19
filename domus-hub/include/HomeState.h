@@ -11,7 +11,7 @@ struct HomeState {
     PowerState alarmPwr = PowerState::OFF; //alarm system power state
     bool moveDetected = false; //flag to keep info of any movement detection while alarm is active
     PowerState heatSysPwr = PowerState::OFF; //heating system power
-    unsigned char heatTemp = 20; // selected heating system temperature 
+    unsigned int heatTemp = 20; // selected heating system temperature 
     GarageState garageState = GarageState::CLOSE;
 };
 
