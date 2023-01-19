@@ -4,12 +4,7 @@
 
 #define CALIBRATION_TIME_SEC 10
 
-Pir::Pir(int pin) {
-    this->pin = pin;
-    pinMode(pin,INPUT);
-}
-
-void Pir::calibrate() {
+void PirSensor::calibrate() {
     Serial.print("Calibrazione sensore movimento... ");
     for(int i = 0; i < CALIBRATION_TIME_SEC; i++){
         Serial.print(".");
@@ -18,6 +13,6 @@ void Pir::calibrate() {
     Serial.println("calibrazione sensore finita");
 }
 
-bool Pir::motionDetect() {
-    return digitalRead(this->pin) == HIGH;
+bool PirSensor::motionDetect() {
+    return digitalRead(this->getPin()) == HIGH;
 }

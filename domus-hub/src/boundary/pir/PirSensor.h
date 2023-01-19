@@ -1,16 +1,14 @@
 #ifndef __PIR_SENSOR__
 #define __PIR_SENSOR__
 
-class Pir {
-    private:
-        int pin;
+#include "MotionSensor.h"
+#include "boundary/Input.h"
+
+class PirSensor : public MotionSensor, public Input {
     public:
-        Pir(int pin);
-        /**
-         * @brief Method to calibrate motion sensor, it is blockiing method, calibration takes some time.
-         */
-        virtual void calibrate() = 0;
-        virtual bool motionDetect() = 0;
+        PirSensor(int pin) : Input(pin) {};
+        void calibrate();
+        bool motionDetect();
 };
 
 #endif
