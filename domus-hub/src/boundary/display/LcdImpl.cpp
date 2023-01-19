@@ -30,7 +30,7 @@ void Lcd::updateHeatState(PowerState heatState) {
     this->lcd->print(heatState == PowerState::ON ? ON_MSG : OFF_MSG);
 }
 
-void Lcd::updateHeatTemp(int temp) {
+void Lcd::updateHeatTemp(unsigned int temp) {
     this->lcd->setCursor(12,1);
     this->lcd->print(temp);
     this->lcd->setCursor(14,1);

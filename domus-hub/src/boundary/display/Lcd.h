@@ -13,7 +13,7 @@ class Lcd : public Display {
         void initLcd(uint8_t addr);
         void updateAlarmState(PowerState state);
         void updateHeatState(PowerState state);
-        void updateHeatTemp(int temp);
+        void updateHeatTemp(unsigned int temp);
         void showAlarmAlertMsg();
         void clear();
 };
