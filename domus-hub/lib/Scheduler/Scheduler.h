@@ -3,7 +3,7 @@
 
 #include "Task.h"
 
-#define MAX_TASK 6
+#define MAX_TASK 10
 
 class Scheduler {
     Task* taskList[MAX_TASK];
