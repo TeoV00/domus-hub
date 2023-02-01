@@ -16,12 +16,8 @@ void SendDataTask::tick() {
     Serial.print(this->homeState->inLight);
     Serial.print(",\"outLight\":");
     Serial.print(this->homeState->outLight);
-    Serial.print(",\"alarmLight\":");
-    Serial.print(this->homeState->alarmLight);
-    Serial.print(",\"alarmPwr\":");
-    Serial.print(this->homeState->alarmPwr);
-    Serial.print(",\"moveDetected\":");
-    Serial.print(this->homeState->moveDetected);
+    Serial.print(",\"alarmState\":");
+    Serial.print(this->homeState->alarmState);
     Serial.print(",\"heatSysPwr\":");
     Serial.print(this->homeState->heatSysPwr);
     Serial.print(",\"heatTemp\":");
