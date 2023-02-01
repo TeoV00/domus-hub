@@ -1,7 +1,6 @@
 #include <Arduino.h>
 
 #include "HomeState.h"
-#include "InputValues.h"
 
 #include "Scheduler.h"
 #include "Tasks/GarageTask.h"
@@ -33,11 +32,6 @@ void setup() {
     displayTask = new DisplayTask(&homeState);
     displayTask->init(150);
     sched.addTask(displayTask);
-
-    recvDataTask = new RecvDataTask(&homeState);
-    recvDataTask->init(100);
-    sched.addTask(recvDataTask);
-    //TODO: problema!!  I dati li ricevo ma poi vengono sovrascritti dall' input task 
    
     heatSysTask = new HeatingSysTask(&homeState);
     heatSysTask->init(200);
@@ -56,10 +50,13 @@ void setup() {
     lightTask->init(300);
     sched.addTask(lightTask); 
 
+    recvDataTask = new RecvDataTask(&homeState);
+    recvDataTask->init(100);
+    sched.addTask(recvDataTask);
+
     sendDataTask = new SendDataTask(&homeState);
     sendDataTask->init(2000);
     sched.addTask(sendDataTask);
-    sendDataTask->disable(); //WARNING: remove it 
 }
 
 void loop() {
