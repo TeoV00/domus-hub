@@ -7,9 +7,8 @@
 #include "Tasks/GarageTask.h"
 #include "Tasks/DisplayTask.h"
 #include "Tasks/LightTask.h"
-#include "Tasks/InputTask.h"
 #include "Tasks/HeatingSysTask.h"
-#include "Tasks/AlarmSysTask.h"
+#include "Tasks/Alarm/AlarmSysTask.h"
 #include "Tasks/Communication/SendDataTask.h"
 #include "Tasks/Communication/RecvDataTask.h"
 
@@ -38,7 +37,6 @@ void setup() {
     recvDataTask = new RecvDataTask(&homeState);
     recvDataTask->init(100);
     sched.addTask(recvDataTask);
-    recvDataTask->disable();  //WARNING: remove it 
     //TODO: problema!!  I dati li ricevo ma poi vengono sovrascritti dall' input task 
    
     heatSysTask = new HeatingSysTask(&homeState);
@@ -56,8 +54,7 @@ void setup() {
 
     lightTask = new LightTask(&homeState);
     lightTask->init(300);
-    sched.addTask(lightTask);
-    lightTask->disable(); //WARNING: remove it 
+    sched.addTask(lightTask); 
 
     sendDataTask = new SendDataTask(&homeState);
     sendDataTask->init(2000);
