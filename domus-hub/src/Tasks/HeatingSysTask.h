@@ -8,10 +8,9 @@
 class HeatingSysTask : public Task {
     private:
         HomeState* homeState;
-        InputValues* inputValues;
 
     public:
-        HeatingSysTask(HomeState* homeState, InputValues* inputValues);
+        HeatingSysTask(HomeState* homeState);
         void init(int timeoutExec);
         void tick();
 };

@@ -10,9 +10,9 @@
 class InputTask : public Task {
     private:
         InputValues* inputValues;
-        Button* alarmBtn;
+        
         Button* heatBtn;
-        MotionSensor* motionSensor;
+        
         Potentiometer* tempSelector;
 
     public:
