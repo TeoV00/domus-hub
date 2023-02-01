@@ -10,6 +10,7 @@ GarageDoor::GarageDoor(HomeState* homeState) {
     this->motor = new ServoMotorImpl(SERVO_PWM);
     this->motor->on();
     this->motor->setPosition(this->doorPosition);
+    this->motor->off();
 }
 
 void GarageDoor::open() {
