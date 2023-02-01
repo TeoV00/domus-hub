@@ -19,7 +19,7 @@ void DisplayTask::tick() {
     /* 
      * If is detected a movement show alarm message
      */
-    if (this->homeState->moveDetected && this->homeState->alarmPwr == PowerState::ON) {
+    if (this->homeState->alarmState == AlarmState::RINGING) {
         this->display->showAlarmAlertMsg();
     } else {
         this->updateDisplay();
@@ -27,7 +27,9 @@ void DisplayTask::tick() {
 }
 
 void DisplayTask::updateDisplay() {
-    this->display->updateAlarmState(homeState->alarmPwr);
+    AlarmState alarmState = this->homeState->alarmState;
+    PowerState alarmPower = (alarmState == AlarmState::A_ON || alarmState == AlarmState::RINGING)? PowerState::ON : PowerState::OFF;
+    this->display->updateAlarmState(alarmPower);
     this->display->updateHeatState(homeState->heatSysPwr);
     this->display->updateHeatTemp(homeState->heatTemp);
 }

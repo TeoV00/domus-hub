@@ -28,11 +28,6 @@ void LightTask::updateLight() {
     } else if (this->homeState->inLight == PowerState::ON) {
         this->indoorLight->switchOn();
     }
-    if (this->homeState->alarmLight == PowerState::OFF) {
-        this->alarmLight->switchOff();
-    } else if (this->homeState->alarmLight == PowerState::ON) {
-        this->alarmLight->switchOn();
-    }
 }
 
 
