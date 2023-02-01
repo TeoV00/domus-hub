@@ -3,11 +3,18 @@
 
 #include "Task.h"
 #include "HomeState.h"
-#include "InputValues.h"
+#include "HeatingState.h"
+#include "boundary/button/Button.h"
+#include "boundary/potentiometer/Potentiometer.h"
 
 class HeatingSysTask : public Task {
     private:
         HomeState* homeState;
+        Button* heatBtn;
+        Potentiometer* tempSelector;
+        HeatingState state;
+        int timeoutCounter;
+        int timeoutStep;
 
     public:
         HeatingSysTask(HomeState* homeState);
