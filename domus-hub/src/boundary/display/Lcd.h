@@ -9,12 +9,12 @@ class Lcd : public Display {
         LiquidCrystal_I2C* lcd;
         
     public:
-        Lcd();
-        void initLcd(uint8_t addr);
+        Lcd(uint8_t addr);
         void updateAlarmState(PowerState state);
         void updateHeatState(PowerState state);
         void updateHeatTemp(unsigned int temp);
         void showAlarmAlertMsg();
+        void showInitMessage();
         void clear();
 };
 

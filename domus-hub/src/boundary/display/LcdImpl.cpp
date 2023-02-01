@@ -7,10 +7,8 @@
 #define DEGREE_SYMBOL_ASCII 223
 #define ON_MSG "ON "  //the whitespace is needed in order to cancel last F of word OFF
 #define OFF_MSG "OFF"
-Lcd::Lcd() {
-}
 
-void Lcd::initLcd(uint8_t addr) {
+Lcd::Lcd(uint8_t addr) {
     this->lcd = new LiquidCrystal_I2C(addr,16, 2);
     this->lcd->init();
     this->lcd->backlight();
@@ -18,7 +16,7 @@ void Lcd::initLcd(uint8_t addr) {
 
 void Lcd::updateAlarmState(PowerState alarmState) {
     this->lcd->setCursor(0,0);
-    this->lcd->print("Alarm:");
+    this->lcd->print("Alarm: ");
     this->lcd->setCursor(7,0);
     this->lcd->print(alarmState == PowerState::ON ? ON_MSG : OFF_MSG);
 }
@@ -31,6 +29,8 @@ void Lcd::updateHeatState(PowerState heatState) {
 }
 
 void Lcd::updateHeatTemp(unsigned int temp) {
+    this->lcd->setCursor(11,1);
+    this->lcd->print(" ");
     this->lcd->setCursor(12,1);
     this->lcd->print(temp);
     this->lcd->setCursor(14,1);
@@ -44,6 +44,13 @@ void Lcd::showAlarmAlertMsg() {
     this->lcd->print("RILEVATO INTRUSO");
 }
 
-void Lcd::clear() {
+void Lcd::showInitMessage() {
     this->lcd->clear();
+    this->lcd->setCursor(0,0);
+    this->lcd->print("Domus Hub");
+    this->lcd->setCursor(0,1);
+    this->lcd->print("Calibrazione...");
+}
+
+void Lcd::clear() {
 }

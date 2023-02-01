@@ -5,22 +5,21 @@
 #include "PinSetup.h"
 
 DisplayTask::DisplayTask(HomeState* homeState) {
-    Lcd* lcd = new Lcd();
-    lcd->initLcd(LCD_ADDR);
-    this->display = lcd;
+    this->display = new Lcd(LCD_ADDR);
     this->homeState = homeState;
     this->updateDisplay();
 }
 
 void DisplayTask::init(int timeoutExec) {
     Task::init(timeoutExec);
+    this->display->showInitMessage();
 }
 
 void DisplayTask::tick() {
     /* 
      * If is detected a movement show alarm message
      */
-    if (this->homeState->moveDetected) {
+    if (this->homeState->moveDetected && this->homeState->alarmPwr == PowerState::ON) {
         this->display->showAlarmAlertMsg();
     } else {
         this->updateDisplay();
