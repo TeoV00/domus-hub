@@ -19,6 +19,8 @@ void GarageTask::tick() {
         this->garageDoor->open();
     } else if(state == GarageState::REQ_CLOSE) {
         this->garageDoor->close();
+    } else if (state == GarageState::REQ_PAUSE) {
+        this->garageDoor->pause();
     }
     this->garageDoor->updateDoor();
 }
