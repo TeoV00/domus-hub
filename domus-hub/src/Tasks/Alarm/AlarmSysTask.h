@@ -6,6 +6,7 @@
 #include "boundary/button/SwitchButton.h"
 #include "boundary/pir/MotionSensor.h"
 #include "boundary/light/BlinkLed.h"
+#include "AlarmState.h"
 
 #define ALARM_TASK_EXEC_TIMEOUT 200
 
@@ -15,6 +16,7 @@ class AlarmSysTask : public Task {
         MotionSensor* motionSensor;
         SwitchButton* alarmBtn;
         BlinkLed* ledIndicator;
+        AlarmState state;
 
     public:
         AlarmSysTask(HomeState* homeState);
