@@ -1,6 +1,7 @@
 #include <Arduino.h>
 
 #include "HomeState.h"
+#include "HomeSensorData.h"
 
 #include "Scheduler.h"
 #include "Tasks/GarageTask.h"
@@ -14,7 +15,7 @@
 #define SCHED_PERIOD 10
 
 HomeState homeState;
-
+HomeSensorData sensorData;
 Scheduler sched;
 
 GarageTask* garageTask;
@@ -44,13 +45,12 @@ void setup() {
     garageTask = new GarageTask(&homeState);
     garageTask->init(60);
     sched.addTask(garageTask);
-    garageTask->disable(); //WARNING: remove it 
 
     lightTask = new LightTask(&homeState);
     lightTask->init(300);
     sched.addTask(lightTask); 
 
-    recvDataTask = new RecvDataTask(&homeState);
+    recvDataTask = new RecvDataTask(&sensorData);
     recvDataTask->init(100);
     sched.addTask(recvDataTask);
 

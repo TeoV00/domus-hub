@@ -1,11 +1,10 @@
 
 #include <HardwareSerial.h>
 #include "Tasks/Communication/RecvDataTask.h"
-#include "HomeState.h"
-#include "utility/JsonToData.h"
+#include "ArduinoJson.h"
 
-RecvDataTask::RecvDataTask(HomeState* homeState) {
-    this->homeState = homeState;
+RecvDataTask::RecvDataTask(HomeSensorData* sensorData) {
+    this->sensorData = sensorData;
 };
 
 void RecvDataTask::init(int timeoutExec){
@@ -14,9 +13,11 @@ void RecvDataTask::init(int timeoutExec){
 
 void RecvDataTask::tick() {
     if (Serial.available() > 0) {
-        String json = Serial.readStringUntil('\n');
-        if (json.length() > 0) {
-            jsonToData(json, this->homeState);
+        StaticJsonDocument<48> doc;
+        DeserializationError error = deserializeJson(doc, Serial);
+        if (!error) {
+            sensorData->temp = doc["temp"];
+            sensorData->extLight = doc["extLight"];
         }
     }
 };

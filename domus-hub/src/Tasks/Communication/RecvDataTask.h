@@ -4,13 +4,13 @@
 
 #include <HardwareSerial.h>
 #include "Task.h"
-#include "HomeState.h"
+#include "HomeSensorData.h"
 
 class RecvDataTask: public Task{
-    HomeState* homeState;
+    HomeSensorData* sensorData;
 
     public:
-        RecvDataTask(HomeState* homeState);
+        RecvDataTask(HomeSensorData* sensorData);
         void init(int timeoutExec);
         void tick();
 };
