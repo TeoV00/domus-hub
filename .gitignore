@@ -1,3 +1,3 @@
 .DS_Store
 domus-hub/.vscode/
-domus-hub/.vscode/arduino.json
+./domus-hub/.vscode/arduino.json
