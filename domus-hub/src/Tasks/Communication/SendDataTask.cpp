@@ -1,7 +1,8 @@
 
-#include <HardwareSerial.h>
+//#include <HardwareSerial.h>
 #include "Tasks/Communication/SendDataTask.h"
 #include "HomeState.h"
+#include  <ArduinoJson.h>
 
 SendDataTask::SendDataTask(HomeState* homeState) {
     this->homeState = homeState;
@@ -12,17 +13,13 @@ void SendDataTask::init(int timeoutExec){
 }
 
 void SendDataTask::tick() {
-    Serial.print("{\"inLight\":");
-    Serial.print(this->homeState->inLight);
-    Serial.print(",\"outLight\":");
-    Serial.print(this->homeState->outLight);
-    Serial.print(",\"alarmState\":");
-    Serial.print(this->homeState->alarmState);
-    Serial.print(",\"heatSysPwr\":");
-    Serial.print(this->homeState->heatSysPwr);
-    Serial.print(",\"heatTemp\":");
-    Serial.print(this->homeState->heatTemp);
-    Serial.print(",\"garageState\":");
-    Serial.print(this->homeState->garageState);
-    Serial.println("}");
+    StaticJsonDocument<128> doc;
+    doc["inLight"] = this->homeState->inLight;
+    doc["outLight"] = this->homeState->outLight;
+    doc["alarmState"] = this->homeState->alarmState;
+    doc["heatSysPwr"] = this->homeState->heatSysPwr;
+    doc["heatTemp"] = this->homeState->heatTemp;
+    doc["garageState"] = this->homeState->garageState;
+    serializeJson(doc, Serial);
+    Serial.println();
 };
