@@ -5,8 +5,6 @@
 #include "boundary/button/ButtonImpl.h"
 #include "boundary/potentiometer/Potentiometer.h"
 
-#define TIMEOUT_HEATING_ON 8000
-
 HeatingSysTask::HeatingSysTask(HomeState* homeState, HomeSensorData* sensorData) {
     this->homeState = homeState;
     this->sensorData = sensorData;
@@ -23,7 +21,7 @@ void HeatingSysTask::init(int timeoutExec) {
 
 void HeatingSysTask::tick() {
     int potValue = this->tempSelector->readValue();
-    this->homeState->heatTemp = map(potValue,0, 1024, 15, 26);
+    this->homeState->heatTemp = map(potValue,0, 1024, MIN_HEAT_TEMP, MAX_HEAT_TEMP);
     unsigned int tempSens = sensorData->temp;
 
     if (this->state == H_OFF) {
