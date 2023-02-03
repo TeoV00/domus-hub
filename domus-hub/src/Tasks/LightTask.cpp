@@ -4,13 +4,20 @@
 #include "boundary/light/Led.h"
 #include "boundary/light/DimmLed.h"
 #include "PinSetup.h"
+#include "Arduino.h"
 
-LightTask::LightTask(HomeState* homeState) {
+#define MAX_LIGHT 1024
+#define MAX_LIGHT_MAP 5
+#define MIN_LED_BRIGTH 10
+#define MAX_LED_BRIGTH 255
+#define TRESHOLD_LIGHT 3
+
+LightTask::LightTask(HomeState* homeState, HomeSensorData* homeSensorData) {
     this->homeState = homeState;
+    this->homeSensorData = homeSensorData;
     this->indoorLight = new Led(INDOOR_LIGHT_PIN);
-    this->alarmLight = new Led(ALARM_LIGHT_PIN);
     this->outdoorLight = new DimmLed(OUTDOOR_LIGHT_PIN);
-    this->updateLight();
+    this->tick();
 }
 
 void LightTask::init(int timeoutExec){
@@ -19,7 +26,15 @@ void LightTask::init(int timeoutExec){
 
 void LightTask::tick() {
     this->updateLight();
-    this->outdoorLight->setBrightness(this->homeState->outLight);
+    unsigned int mappedLight = map(this->homeSensorData->extLight,0, MAX_LIGHT, 0, MAX_LIGHT_MAP);
+    if (mappedLight < TRESHOLD_LIGHT) {
+        unsigned int ledBright = (MAX_LIGHT/MAX_LED_BRIGTH)*this->homeSensorData->extLight;
+        this->homeState->outLight = ledBright; // update homeState
+        this->outdoorLight->setBrightness(ledBright); // set outdoorlight brigth
+    } else {
+        this->homeState->outLight = 0;
+        this->outdoorLight->setBrightness(0);
+    }
 }
 
 void LightTask::updateLight() {
@@ -29,5 +44,3 @@ void LightTask::updateLight() {
         this->indoorLight->switchOn();
     }
 }
-
-
