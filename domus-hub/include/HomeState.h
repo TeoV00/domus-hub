@@ -7,7 +7,7 @@
 
 struct HomeState {
     PowerState inLight = PowerState::OFF; //indoor lights
-    unsigned char outLight = 0; //outdoor light
+    unsigned int outLight = 0; //outdoor light
     AlarmState alarmState = AlarmState::A_OFF; //alarm system power state
     PowerState heatSysPwr = PowerState::OFF; //heating system power
     unsigned int heatTemp = 20; // selected heating system temperature 

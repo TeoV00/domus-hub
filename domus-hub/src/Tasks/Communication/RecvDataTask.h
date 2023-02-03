@@ -6,6 +6,15 @@
 #include "Task.h"
 #include "HomeSensorData.h"
 
+
+/*
+{
+  "temp": 0,
+  "extLight": 0
+}
+
+{"temp": 0,"extLight": 0}
+*/
 class RecvDataTask: public Task{
     HomeSensorData* sensorData;
 
