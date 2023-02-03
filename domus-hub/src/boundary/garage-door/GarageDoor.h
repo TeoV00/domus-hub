@@ -7,7 +7,7 @@
 #include "Garage.h"
 
 #define MAX_DOOR_POS 180
-#define MIN_DOOR_POS 0
+#define MIN_DOOR_POS 5
 
 class GarageDoor : public Garage {
     private:
