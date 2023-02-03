@@ -7,13 +7,15 @@
 #include "boundary/light/DimmLight.h"
 
 class LightTask : public Task {
-    HomeState* homeState;
-    HomeSensorData* homeSensorData;
-    Light* indoorLight;
-    DimmLight* outdoorLight;
 
     private:
+        HomeState* homeState;
+        HomeSensorData* homeSensorData;
+        Light* indoorLight;
+        DimmLight* outdoorLight;
+        int maxLight4mapping;
         void updateLight();
+        bool checkSwitchOnLight(int extLightValue);
 
     public:
         LightTask(HomeState* homeState, HomeSensorData* homeSensorData);

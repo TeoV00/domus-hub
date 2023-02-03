@@ -8,11 +8,13 @@
 
 #define MAX_LIGHT 1024
 #define MAX_LIGHT_MAP 5
-#define MIN_LED_BRIGTH 10
+#define MIN_LED_BRIGTH 20
 #define MAX_LED_BRIGTH 255
 #define TRESHOLD_LIGHT 3
 
 LightTask::LightTask(HomeState* homeState, HomeSensorData* homeSensorData) {
+    this->maxLight4mapping = MAX_LIGHT/MAX_LIGHT_MAP*TRESHOLD_LIGHT;
+    Serial.print(this->maxLight4mapping);
     this->homeState = homeState;
     this->homeSensorData = homeSensorData;
     this->indoorLight = new Led(INDOOR_LIGHT_PIN);
@@ -26,9 +28,11 @@ void LightTask::init(int timeoutExec){
 
 void LightTask::tick() {
     this->updateLight();
-    unsigned int mappedLight = map(this->homeSensorData->extLight,0, MAX_LIGHT, 0, MAX_LIGHT_MAP);
-    if (mappedLight < TRESHOLD_LIGHT) {
-        unsigned int ledBright = (MAX_LIGHT/MAX_LED_BRIGTH)*this->homeSensorData->extLight;
+    int extLight = this->homeSensorData->extLight;
+
+    if (this->checkSwitchOnLight(extLight)) {
+        // map external light to led values, set outdoor light inversely proportional to external one
+        int ledBright = ((double)-MAX_LED_BRIGTH/this->maxLight4mapping)*extLight + MAX_LED_BRIGTH + MIN_LED_BRIGTH;
         this->homeState->outLight = ledBright; // update homeState
         this->outdoorLight->setBrightness(ledBright); // set outdoorlight brigth
     } else {
@@ -43,4 +47,8 @@ void LightTask::updateLight() {
     } else if (this->homeState->inLight == PowerState::ON) {
         this->indoorLight->switchOn();
     }
+}
+
+bool LightTask::checkSwitchOnLight(int extLightValue) {
+    return map(extLightValue, 0, MAX_LIGHT, 0, MAX_LIGHT_MAP) < TRESHOLD_LIGHT;
 }
