@@ -34,7 +34,7 @@ void setup() {
     displayTask->init(150);
     sched.addTask(displayTask);
    
-    heatSysTask = new HeatingSysTask(&homeState);
+    heatSysTask = new HeatingSysTask(&homeState, &sensorData);
     heatSysTask->init(200);
     sched.addTask(heatSysTask);
 
@@ -46,7 +46,7 @@ void setup() {
     garageTask->init(60);
     sched.addTask(garageTask);
 
-    lightTask = new LightTask(&homeState);
+    lightTask = new LightTask(&homeState, &sensorData);
     lightTask->init(300);
     sched.addTask(lightTask); 
 
@@ -57,6 +57,7 @@ void setup() {
     sendDataTask = new SendDataTask(&homeState);
     sendDataTask->init(2000);
     sched.addTask(sendDataTask);
+    sendDataTask->disable();
 }
 
 void loop() {

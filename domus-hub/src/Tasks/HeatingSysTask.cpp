@@ -7,8 +7,9 @@
 
 #define TIMEOUT_HEATING_ON 8000
 
-HeatingSysTask::HeatingSysTask(HomeState* homeState) {
+HeatingSysTask::HeatingSysTask(HomeState* homeState, HomeSensorData* sensorData) {
     this->homeState = homeState;
+    this->sensorData = sensorData;
     this->heatBtn = new ButtonImpl(HEATING_BTN_PIN);
     this->tempSelector = new Potentiometer(HEATING_POT_PIN);
 }
@@ -23,7 +24,7 @@ void HeatingSysTask::init(int timeoutExec) {
 void HeatingSysTask::tick() {
     int potValue = this->tempSelector->readValue();
     this->homeState->heatTemp = map(potValue,0, 1024, 15, 26);
-    unsigned int tempSens = 20; //TODO: get value from esp 
+    unsigned int tempSens = sensorData->temp;
 
     if (this->state == H_OFF) {
         if (tempSens < this->homeState->heatTemp) {
