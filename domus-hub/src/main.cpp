@@ -32,7 +32,7 @@ void setup() {
     Serial.begin(9600);
     
     sched.init(SCHED_PERIOD);
-    
+
     displayTask = new DisplayTask(&homeState);
     displayTask->init(150);
     sched.addTask(displayTask);

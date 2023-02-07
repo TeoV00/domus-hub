@@ -26,28 +26,28 @@ void AlarmSysTask::tick() {
 
     if (this->state == AlarmState::A_OFF) {
         this->ledIndicator->switchOff();
-        // controlla se passare allo stato ON
         if (btnStateOn) {
             this->state = AlarmState::A_ON;
         }
     } else if (this->state == AlarmState::A_ON) {
         this->homeState->alarmState = AlarmState::A_ON;
-        //quando acceso se viene rilevato un movimento si passa allo stato di allarme
         if (this->motionSensor->motionDetect()) {
             this->state = AlarmState::RINGING;
-            //attiva l'indicatore led dell'allarme
             this->ledIndicator->switchOn();
         } else if (!btnStateOn) {
             this->state = AlarmState::A_OFF;
         }
     } else if (this->state == RINGING) {
-        // fai lampeggiare l'indicatore dell'allarme
         this->ledIndicator->blink();
         this->homeState->inLight = PowerState::ON;
         this->homeState->outLight = 255;
         this->homeState->garageState = GarageState::REQ_CLOSE;
+        if (this->homeState->alarmState == A_RESET && this->homeState->btConnected) {
+            this->state = AlarmState::A_OFF;
+            this->alarmBtn->forceOff();
+            this->homeState->inLight = PowerState::OFF;
+        }
     }
-
-    //TODO: MODIFICARE LO STATO DI ALLARME TRAMITE BLUETOOTH
+    
     this->homeState->alarmState = this->state;
 }

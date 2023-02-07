@@ -4,7 +4,8 @@
 enum AlarmState {
     A_OFF,
     A_ON,
-    RINGING
+    RINGING,
+    A_RESET
 };
 
 #endif
