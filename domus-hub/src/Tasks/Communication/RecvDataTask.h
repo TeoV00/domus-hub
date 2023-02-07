@@ -6,7 +6,6 @@
 #include "Task.h"
 #include "HomeSensorData.h"
 
-
 /*
 {
   "temp": 0,

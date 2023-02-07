@@ -14,7 +14,6 @@
 
 LightTask::LightTask(HomeState* homeState, HomeSensorData* homeSensorData) {
     this->maxLight4mapping = MAX_LIGHT/MAX_LIGHT_MAP*TRESHOLD_LIGHT;
-    Serial.print(this->maxLight4mapping);
     this->homeState = homeState;
     this->homeSensorData = homeSensorData;
     this->indoorLight = new Led(INDOOR_LIGHT_PIN);
