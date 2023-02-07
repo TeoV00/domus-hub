@@ -28,16 +28,21 @@ void LightTask::init(int timeoutExec){
 void LightTask::tick() {
     this->updateLight();
     int extLight = this->homeSensorData->extLight;
-
-    if (this->checkSwitchOnLight(extLight)) {
-        // map external light to led values, set outdoor light inversely proportional to external one
-        int ledBright = ((double)-MAX_LED_BRIGTH/this->maxLight4mapping)*extLight + MAX_LED_BRIGTH + MIN_LED_BRIGTH;
-        this->homeState->outLight = ledBright; // update homeState
-        this->outdoorLight->setBrightness(ledBright); // set outdoorlight brigth
+    
+    if (this->homeState->btConnected == 0) {
+        if(this->checkSwitchOnLight(extLight)) {
+            // map external light to led values, set outdoor light inversely proportional to external one
+            int ledBright = ((double)-MAX_LED_BRIGTH/this->maxLight4mapping)*extLight + MAX_LED_BRIGTH + MIN_LED_BRIGTH;
+            this->homeState->outLight = ledBright; // update homeState
+            this->outdoorLight->setBrightness(ledBright); // set outdoorlight brigth
+        } else {
+            this->homeState->outLight = 0;
+            this->outdoorLight->setBrightness(0);
+        }
     } else {
-        this->homeState->outLight = 0;
-        this->outdoorLight->setBrightness(0);
+        this->outdoorLight->setBrightness(this->homeState->outLight);
     }
+    
 }
 
 void LightTask::updateLight() {
