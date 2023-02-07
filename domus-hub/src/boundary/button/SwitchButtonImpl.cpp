@@ -6,3 +6,7 @@ bool SwitchButtonImpl::isSwitchedOn() {
     }
     return this->isSwitchOn;
 }
+
+void SwitchButtonImpl::forceOff() {
+    this->isSwitchOn = false;
+}

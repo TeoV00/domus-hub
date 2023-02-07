@@ -14,6 +14,7 @@ class SwitchButtonImpl : public SwitchButton, public ButtonImpl {
             this->isSwitchOn = false;
         };
         bool isSwitchedOn();
+        void forceOff();
 
 };
 
