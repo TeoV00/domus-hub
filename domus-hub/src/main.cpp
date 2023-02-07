@@ -11,6 +11,7 @@
 #include "Tasks/Alarm/AlarmSysTask.h"
 #include "Tasks/Communication/SendDataTask.h"
 #include "Tasks/Communication/RecvDataTask.h"
+#include "Tasks/BluetoothTask.h"
 
 #define SCHED_PERIOD 10
 
@@ -25,11 +26,13 @@ SendDataTask* sendDataTask;
 RecvDataTask* recvDataTask;
 HeatingSysTask* heatSysTask;
 AlarmSysTask* alarmSysTask;
+BluetoothTask* bluetoothTask;
 
 void setup() {
     Serial.begin(9600);
+    
     sched.init(SCHED_PERIOD);
-
+    
     displayTask = new DisplayTask(&homeState);
     displayTask->init(150);
     sched.addTask(displayTask);
@@ -57,7 +60,11 @@ void setup() {
     sendDataTask = new SendDataTask(&homeState);
     sendDataTask->init(2000);
     sched.addTask(sendDataTask);
-    sendDataTask->disable();
+
+    bluetoothTask = new BluetoothTask(&homeState);
+    bluetoothTask->init(200);
+    sched.addTask(bluetoothTask);
+
 }
 
 void loop() {
