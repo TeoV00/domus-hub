@@ -5,7 +5,7 @@ enum AlarmState {
     A_OFF,
     A_ON,
     RINGING,
-    A_RESET
+    A_RESET //bluetooth code request to exit RINGING state
 };
 
 #endif
