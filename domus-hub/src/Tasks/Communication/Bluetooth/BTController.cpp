@@ -4,6 +4,7 @@
 #include "BTController.h"
 #include "Arduino.h"
 #include "ArduinoJson.h"
+#include "BtKeyRequest.h"
 
 BtController::BtController(HomeState* homeState, int btRXpin, int btTXpin, int btStatePin) {
     this->bt = new SoftwareSerial(btRXpin, btTXpin);
@@ -23,11 +24,11 @@ void BtController::receiveData() {
         String value = recvData.substring(recvData.indexOf(":")+1, recvData.length());
         String key = recvData.substring(0,recvData.indexOf(":"));
 
-        if (key == "inLight") {
-            this->homeState->inLight = value == "1" ? PowerState::ON : PowerState::OFF;
-        } else if (key == "outLight") {
+        if (key == INDOOR_LIGHT_KEY) {
+            this->homeState->inLight = value.toInt() ? PowerState::ON : PowerState::OFF;
+        } else if (key == OUTDOOR_LIGHT_KEY) {
             this->homeState->outLight = value.toInt() ;
-        } else if (key == "gar") {
+        } else if (key == GARAGE_KEY) {
             int intVal = value.toInt();
             switch (intVal)
             {
@@ -39,11 +40,11 @@ void BtController::receiveData() {
                 this->homeState->garageState = REQ_PAUSE; break;
             default: break;
             }
-        } else if (key == "heatP") {
+        } else if (key == HEATING_KEY) {
             this->homeState->heatSysPwr = value.toInt() == CUSTOM_STATE ? PowerState::CUSTOM_STATE : PowerState::OFF;
-        } else if (key == "resetA") {
+        } else if (key == RESET_ALARM_KEY) {
             this->homeState->alarmState = AlarmState::A_RESET;
-        } else if (key == "reqData") {
+        } else if (key == REQUEST_DATA_KEY) {
             this->sendData();
         }
     }
