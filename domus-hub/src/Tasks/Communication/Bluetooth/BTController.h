@@ -14,7 +14,7 @@ class BtController {
         BtController(HomeState* homeState, int btRXpin, int btTXpin, int btStatepiin);
         void receiveData();
         void sendData();
-        void checkConnection();
+        bool isConnected();
 };
 
 #endif

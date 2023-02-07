@@ -12,7 +12,7 @@ struct HomeState {
     PowerState heatSysPwr = PowerState::OFF; //heating system power
     unsigned int heatTemp = 20; // selected heating system temperature 
     GarageState garageState = GarageState::CLOSE;
-    bool btConnected = false;
+    unsigned int btConnected = 0;
 };
 
 #endif

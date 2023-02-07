@@ -25,24 +25,42 @@ void BtController::receiveData() {
 
         if (key == "inLight") {
             this->homeState->inLight = value == "1" ? PowerState::ON : PowerState::OFF;
+        } else if (key == "outLight") {
+            this->homeState->outLight = value.toInt() ;
+        } else if (key == "gar") {
+            int intVal = value.toInt();
+            switch (intVal)
+            {
+            case GarageState::REQ_OPEN:
+                this->homeState->garageState = REQ_OPEN; break;
+            case GarageState::REQ_CLOSE:
+                this->homeState->garageState = REQ_CLOSE; break;
+            case GarageState::REQ_PAUSE:
+                this->homeState->garageState = REQ_CLOSE; break;
+            default: break;
+            }
+            
+        } else if (key == "resetA") {
+            this->homeState->alarmState = AlarmState::A_RESET;
+        } else if (key == "reqData") {
+            this->sendData();
         }
     }
-};
+}
   
 void BtController::sendData() {
+    //TODO: troppo pesante da inviare, mi impegna troppo il serial bluetooth
     StaticJsonDocument<192> doc;
-    doc["inLight"] = this->homeState->inLight;
-    doc["outLight"] = this->homeState->outLight;
-    doc["alarmState"] = this->homeState->alarmState;
-    doc["heatSysPwr"] = this->homeState->heatSysPwr;
-    doc["heatTemp"] = this->homeState->heatTemp;
-    doc["garageState"] = this->homeState->garageState;
-    doc["btConnected"] = this->homeState->btConnected;
+    doc["iL"] = this->homeState->inLight;
+    doc["oL"] = this->homeState->outLight;
+    doc["alarm"] = this->homeState->alarmState;
+    doc["hP"] = this->homeState->heatSysPwr;
+    doc["hT"] = this->homeState->heatTemp;
+    doc["gar"] = this->homeState->garageState;
+    doc["bt"] = this->homeState->btConnected;
     serializeJson(doc, *this->bt);
 };
 
-void BtController::checkConnection() {
-    /*if (digitalRead(this->statePin) == LOW) {
-        this->homeState->btConnected = true;
-    }*/
+bool BtController::isConnected() {
+    return digitalRead(this->statePin) == HIGH;
 }
