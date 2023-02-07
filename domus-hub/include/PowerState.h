@@ -3,7 +3,8 @@
 
 enum PowerState {
     OFF,
-    ON
+    ON,
+    CUSTOM_STATE
 };
 
 #endif

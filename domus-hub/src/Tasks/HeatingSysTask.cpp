@@ -25,10 +25,11 @@ void HeatingSysTask::tick() {
     unsigned int tempSens = sensorData->temp;
 
     if (this->state == H_OFF) {
-        if (tempSens < this->homeState->heatTemp) {
+        if (tempSens < this->homeState->heatTemp && !this->homeState->btConnected) {
             this->state = H_ON;
             this->homeState->heatSysPwr = PowerState::ON;
-        } else if (this->heatBtn->isPressed()) {
+        } else if (this->heatBtn->isPressed() || 
+                (this->homeState->btConnected && this->homeState->heatSysPwr == CUSTOM_STATE)) {
             this->state = H_TIMED_ON;
             this->homeState->heatSysPwr = PowerState::ON;
             this->timeoutCounter = 0;
@@ -39,8 +40,9 @@ void HeatingSysTask::tick() {
         this->timeoutCounter += this->timeoutStep;
         if (this->timeoutCounter >= TIMEOUT_HEATING_ON || this->heatBtn->isPressed()) {
             this->state = H_OFF;
+            this->timeoutCounter = 0;
         }
-    } else if (this->state == H_ON) {
+    } else if (this->state == H_ON && !this->homeState->btConnected) {
         if (tempSens >= this->homeState->heatTemp) {
             this->state = H_OFF;
         }

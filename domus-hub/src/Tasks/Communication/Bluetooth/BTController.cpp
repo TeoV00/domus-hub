@@ -36,10 +36,11 @@ void BtController::receiveData() {
             case GarageState::REQ_CLOSE:
                 this->homeState->garageState = REQ_CLOSE; break;
             case GarageState::REQ_PAUSE:
-                this->homeState->garageState = REQ_CLOSE; break;
+                this->homeState->garageState = REQ_PAUSE; break;
             default: break;
             }
-            
+        } else if (key == "heatP") {
+            this->homeState->heatSysPwr = value.toInt() == CUSTOM_STATE ? PowerState::CUSTOM_STATE : PowerState::OFF;
         } else if (key == "resetA") {
             this->homeState->alarmState = AlarmState::A_RESET;
         } else if (key == "reqData") {
@@ -47,9 +48,8 @@ void BtController::receiveData() {
         }
     }
 }
-  
+
 void BtController::sendData() {
-    //TODO: troppo pesante da inviare, mi impegna troppo il serial bluetooth
     StaticJsonDocument<192> doc;
     doc["iL"] = this->homeState->inLight;
     doc["oL"] = this->homeState->outLight;
