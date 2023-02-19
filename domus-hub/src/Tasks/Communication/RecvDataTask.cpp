@@ -5,6 +5,7 @@
 
 RecvDataTask::RecvDataTask(HomeSensorData* sensorData) {
     this->sensorData = sensorData;
+    Serial.begin(9600);
 };
 
 void RecvDataTask::init(int timeoutExec){
@@ -13,11 +14,14 @@ void RecvDataTask::init(int timeoutExec){
 
 void RecvDataTask::tick() {
     if (Serial.available() > 0) {
-        StaticJsonDocument<48> doc;
+        StaticJsonDocument<96> doc;
         DeserializationError error = deserializeJson(doc, Serial);
+       
         if (!error) {
             sensorData->temp = doc["temp"];
             sensorData->extLight = doc["extLight"];
+        } else {
+            Serial.println("Errore lettura json sensori");
         }
     }
 };

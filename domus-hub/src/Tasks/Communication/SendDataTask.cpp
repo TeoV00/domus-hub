@@ -14,13 +14,13 @@ void SendDataTask::init(int timeoutExec){
 
 void SendDataTask::tick() {
     StaticJsonDocument<192> doc;
-    doc["inLight"] = this->homeState->inLight;
-    doc["outLight"] = this->homeState->outLight;
-    doc["alarmState"] = this->homeState->alarmState;
-    doc["heatSysPwr"] = this->homeState->heatSysPwr;
-    doc["heatTemp"] = this->homeState->heatTemp;
-    doc["garageState"] = this->homeState->garageState;
-    doc["btConnected"] = this->homeState->btConnected;
+    doc["iL"] = this->homeState->inLight;
+    doc["oL"] = this->homeState->outLight;
+    doc["alarm"] = this->homeState->alarmState;
+    doc["hP"] = this->homeState->heatSysPwr;
+    doc["hT"] = this->homeState->heatTemp;
+    doc["gar"] = this->homeState->garageState;
+    doc["bt"] = this->homeState->btConnected;
     serializeJson(doc, Serial);
     Serial.println();
 };
