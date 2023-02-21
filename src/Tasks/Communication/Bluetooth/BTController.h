@@ -8,6 +8,7 @@ class BtController {
     private:
         SoftwareSerial* bt;
         HomeState* homeState;
+        
         int statePin;
         
     public:

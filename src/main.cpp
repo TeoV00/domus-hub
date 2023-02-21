@@ -13,7 +13,7 @@
 #include "Tasks/Communication/RecvDataTask.h"
 #include "Tasks/BluetoothTask.h"
 
-#define SCHED_PERIOD 10
+#define SCHED_PERIOD 20
 
 HomeState homeState;
 HomeSensorData sensorData;
@@ -23,7 +23,7 @@ GarageTask* garageTask;
 DisplayTask* displayTask;
 LightTask* lightTask;
 SendDataTask* sendDataTask;
-RecvDataTask* recvDataTask;
+RecvDataTask* recvSensorDataTask;
 HeatingSysTask* heatSysTask;
 AlarmSysTask* alarmSysTask;
 BluetoothTask* bluetoothTask;
@@ -34,16 +34,16 @@ void setup() {
     sched.init(SCHED_PERIOD);
 
     displayTask = new DisplayTask(&homeState);
-    displayTask->init(300);
+    displayTask->init(500);
     sched.addTask(displayTask);
 
     lightTask = new LightTask(&homeState, &sensorData);
-    lightTask->init(300);
+    lightTask->init(500);
     sched.addTask(lightTask); 
 
-    recvDataTask = new RecvDataTask(&sensorData);
-    recvDataTask->init(200);
-    sched.addTask(recvDataTask);
+    recvSensorDataTask = new RecvDataTask(&sensorData);
+    recvSensorDataTask->init(2000);
+    sched.addTask(recvSensorDataTask);
 
     heatSysTask = new HeatingSysTask(&homeState, &sensorData);
     heatSysTask->init(200);
@@ -57,12 +57,12 @@ void setup() {
     sendDataTask->init(2000);
     sched.addTask(sendDataTask);
     
-    garageTask = new GarageTask(&homeState);
-    garageTask->init(80);
+    garageTask = new GarageTask(&homeState.garageState);
+    garageTask->init(40);
     sched.addTask(garageTask);
   
     bluetoothTask = new BluetoothTask(&homeState);
-    bluetoothTask->init(1000);
+    bluetoothTask->init(2000);
     sched.addTask(bluetoothTask);
 
 }
