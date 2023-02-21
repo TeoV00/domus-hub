@@ -6,11 +6,13 @@
 #include "boundary/garage-door/GarageDoor.h"
 
 class GarageTask: public Task{
-    HomeState* homeState;
-    GarageDoor* garageDoor;
+    private:
+        GarageState* garageState;
+        GarageDoor* garageDoor;
+        GarageState getGarageState();
 
     public:
-        GarageTask(HomeState* homeState);
+        GarageTask(GarageState* garageState);
         void init(int timeoutExec);
         void tick();
 

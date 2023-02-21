@@ -4,17 +4,18 @@
 #include <HardwareSerial.h>
 #include "boundary/garage-door/GarageState.h"
 
-GarageTask::GarageTask(HomeState* homeState) {
-    this->garageDoor = new GarageDoor(homeState);
-    this->homeState = homeState;
+GarageTask::GarageTask(GarageState* garageState) {
+    this->garageDoor = new GarageDoor(garageState);
+    this->garageState = garageState;
 }
 
 void GarageTask::init(int timeoutExec) {
     Task::init(timeoutExec);
+    garageDoor->close();
 }
 
 void GarageTask::tick() {
-    GarageState state = this->homeState->garageState;
+    GarageState state = this->getGarageState();
     if(state == GarageState::REQ_OPEN) {
         this->garageDoor->open();
     } else if(state == GarageState::REQ_CLOSE) {
@@ -23,4 +24,8 @@ void GarageTask::tick() {
         this->garageDoor->pause();
     }
     this->garageDoor->updateDoor();
+}
+
+GarageState GarageTask::getGarageState() {
+    return *this->garageState;
 }

@@ -1,12 +1,13 @@
 
 #include "GarageDoor.h"
+#include "GarageState.h"
 #include "servo_motor_impl.h"
 #include "PinSetup.h"
 #define INC_POS 1
 #define DEC_POS -1
 
-GarageDoor::GarageDoor(HomeState* homeState) {
-    this->state = homeState;
+GarageDoor::GarageDoor(GarageState* garageHomeState) {
+    this->garageHomeState = garageHomeState;
     this->motor = new ServoMotorImpl(SERVO_PWM);
     this->motor->on();
     this->motor->setPosition(MIN_DOOR_POS);
@@ -15,14 +16,14 @@ GarageDoor::GarageDoor(HomeState* homeState) {
 void GarageDoor::open() {
     if (this->getState() != GarageState::OPEN ||
         this->getState() != GarageState::OPENING) {
-        this->state->garageState = GarageState::OPENING;
+        *this->garageHomeState = GarageState::OPENING;
     }
 }
 
 void GarageDoor::close() {
     if (this->getState() != GarageState::CLOSE || 
         this->getState() != GarageState::CLOSING) {
-        this->state->garageState = GarageState::CLOSING;
+        *this->garageHomeState= GarageState::CLOSING;
     }
 }
 
@@ -39,15 +40,15 @@ void GarageDoor::updateDoor() {
        this->motor->off();
     }
     if (this->doorPosition <= MIN_DOOR_POS) {
-        this->state->garageState = GarageState::CLOSE;
+        *this->garageHomeState = GarageState::CLOSE;
     } else if (this->doorPosition >= MAX_DOOR_POS) {
-         this->state->garageState = GarageState::OPEN;
+        *this->garageHomeState = GarageState::OPEN;
     }
 }
 
 void GarageDoor::pause() {
-    GarageState curState = this->state->garageState;
+    GarageState curState = *this->garageHomeState;
     if (curState == GarageState::REQ_PAUSE) {
-        this->state->garageState = GarageState::PAUSE;
+        *this->garageHomeState = GarageState::PAUSE;
     }
 }

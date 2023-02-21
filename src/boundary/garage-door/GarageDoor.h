@@ -7,22 +7,22 @@
 #include "Garage.h"
 
 #define MAX_DOOR_POS 180
-#define MIN_DOOR_POS 5
+#define MIN_DOOR_POS 0
 
 class GarageDoor : public Garage {
     private:
         int doorPosition = MIN_DOOR_POS;
-        HomeState* state;
+        GarageState* garageHomeState;
         ServoMotor* motor;
 
     public:
-        GarageDoor(HomeState* state);
+        GarageDoor(GarageState* garageHomeState);
         void open();
         void close();
         void pause();
         void updateDoor();
         GarageState getState() {
-            return this->state->garageState;
+            return *this->garageHomeState;
         };
 };
 
