@@ -56,9 +56,9 @@ void setup() {
     sendDataTask = new SendDataTask(&homeState);
     sendDataTask->init(2000);
     sched.addTask(sendDataTask);
-
+    
     garageTask = new GarageTask(&homeState);
-    garageTask->init(50);
+    garageTask->init(80);
     sched.addTask(garageTask);
   
     bluetoothTask = new BluetoothTask(&homeState);

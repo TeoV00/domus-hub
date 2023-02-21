@@ -10,7 +10,6 @@ GarageDoor::GarageDoor(HomeState* homeState) {
     this->motor = new ServoMotorImpl(SERVO_PWM);
     this->motor->on();
     this->motor->setPosition(MIN_DOOR_POS);
-    this->motor->off();
 }
 
 void GarageDoor::open() {
@@ -37,7 +36,7 @@ void GarageDoor::updateDoor() {
         this->motor->on();
         this->motor->setPosition(this->doorPosition);
     } else {
-        this->motor->off();
+       this->motor->off();
     }
     if (this->doorPosition <= MIN_DOOR_POS) {
         this->state->garageState = GarageState::CLOSE;

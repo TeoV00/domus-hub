@@ -21,8 +21,8 @@
 #define PIR_PIN 8
 
 //Buttons pin
-#define HEATING_BTN_PIN 9
-#define ALARM_BTN_PIN 10
+#define HEATING_BTN_PIN 10
+#define ALARM_BTN_PIN 9
 
 //Potentionemeter to select temperature
 #define HEATING_POT_PIN A0
