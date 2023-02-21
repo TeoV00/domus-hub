@@ -4,7 +4,7 @@
 enum PowerState {
     OFF,
     ON,
-    CUSTOM_STATE
+    REQ_TOGGLE
 };
 
 #endif

@@ -9,8 +9,6 @@ BtController::BtController(HomeState* homeState, int btRXpin, int btTXpin, int b
     this->bt = new SoftwareSerial(btRXpin, btTXpin);
     this->homeState = homeState;
 
-    pinMode(btRXpin, INPUT);
-    pinMode(btTXpin, OUTPUT);
     pinMode(btStatePin, INPUT);
     this->statePin = btStatePin;
     this->bt->begin(9600);
@@ -40,7 +38,7 @@ void BtController::receiveData() {
             default: break;
             }
         } else if (key == HEATING_KEY) {
-            this->homeState->heatSysPwr = value.toInt() == CUSTOM_STATE ? PowerState::CUSTOM_STATE : PowerState::OFF;
+            this->homeState->heatSysPwr = value.toInt() == REQ_TOGGLE ? PowerState::REQ_TOGGLE : PowerState::OFF;
         } else if (key == ALARM_KEY) {
             this->homeState->alarmState = value.toInt() == A_SWITCH_OFF ? AlarmState::A_SWITCH_OFF : AlarmState::A_SWITCH_ON;
         } else if (key == RESET_ALARM_KEY) {

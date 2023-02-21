@@ -29,7 +29,7 @@ void HeatingSysTask::tick() {
             this->state = H_ON;
             this->homeState->heatSysPwr = PowerState::ON;
         } else if (this->heatBtn->isPressed() || 
-                (this->homeState->btConnected && this->homeState->heatSysPwr == CUSTOM_STATE)) {
+                (this->homeState->btConnected && this->homeState->heatSysPwr == REQ_TOGGLE)) {
             this->state = H_TIMED_ON;
             this->homeState->heatSysPwr = PowerState::ON;
             this->timeoutCounter = 0;
@@ -38,7 +38,9 @@ void HeatingSysTask::tick() {
         }
     } else if (this->state == H_TIMED_ON) {
         this->timeoutCounter += this->timeoutStep;
-        if (this->timeoutCounter >= TIMEOUT_HEATING_ON || this->heatBtn->isPressed()) {
+        if (this->timeoutCounter >= TIMEOUT_HEATING_ON || 
+            this->heatBtn->isPressed() ||
+            (this->homeState->btConnected && this->homeState->heatSysPwr == REQ_TOGGLE)) {
             this->state = H_OFF;
             this->timeoutCounter = 0;
         }
