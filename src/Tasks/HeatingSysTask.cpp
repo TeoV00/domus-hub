@@ -5,7 +5,7 @@
 #include "boundary/button/ButtonImpl.h"
 #include "boundary/potentiometer/Potentiometer.h"
 
-HeatingSysTask::HeatingSysTask(HomeState* homeState, HomeSensorData* sensorData) {
+HeatingSysTask::HeatingSysTask(HomeState* homeState, SensorData* sensorData) {
     this->homeState = homeState;
     this->sensorData = sensorData;
     this->heatBtn = new ButtonImpl(HEATING_BTN_PIN);

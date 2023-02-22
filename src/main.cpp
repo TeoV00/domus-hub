@@ -1,7 +1,7 @@
 #include <Arduino.h>
 
 #include "HomeState.h"
-#include "HomeSensorData.h"
+#include "SensorData.h"
 
 #include "Scheduler.h"
 #include "Tasks/GarageTask.h"
@@ -9,21 +9,19 @@
 #include "Tasks/LightTask.h"
 #include "Tasks/HeatingSysTask.h"
 #include "Tasks/Alarm/AlarmSysTask.h"
-#include "Tasks/Communication/SendDataTask.h"
-#include "Tasks/Communication/RecvDataTask.h"
+#include "Tasks/Communication/SerialCommTask.h"
 #include "Tasks/BluetoothTask.h"
 
 #define SCHED_PERIOD 20
 
 HomeState homeState;
-HomeSensorData sensorData;
+SensorData sensorData;
 Scheduler sched;
 
 GarageTask* garageTask;
 DisplayTask* displayTask;
 LightTask* lightTask;
-SendDataTask* sendDataTask;
-RecvDataTask* recvSensorDataTask;
+SerialCommTask* serialCommTask;
 HeatingSysTask* heatSysTask;
 AlarmSysTask* alarmSysTask;
 BluetoothTask* bluetoothTask;
@@ -41,10 +39,6 @@ void setup() {
     lightTask->init(500);
     sched.addTask(lightTask); 
 
-    recvSensorDataTask = new RecvDataTask(&sensorData);
-    recvSensorDataTask->init(2000);
-    sched.addTask(recvSensorDataTask);
-
     heatSysTask = new HeatingSysTask(&homeState, &sensorData);
     heatSysTask->init(200);
     sched.addTask(heatSysTask);
@@ -53,9 +47,9 @@ void setup() {
     alarmSysTask->init(ALARM_TASK_EXEC_TIMEOUT);
     sched.addTask(alarmSysTask);
 
-    sendDataTask = new SendDataTask(&homeState);
-    sendDataTask->init(2000);
-    sched.addTask(sendDataTask);
+    serialCommTask = new SerialCommTask(&homeState, &sensorData);
+    serialCommTask->init(2000);
+    sched.addTask(serialCommTask);
     
     garageTask = new GarageTask(&homeState.garageState);
     garageTask->init(40);

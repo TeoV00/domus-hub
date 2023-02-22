@@ -3,7 +3,7 @@
 
 #include "Task.h"
 #include "HomeState.h"
-#include "HomeSensorData.h"
+#include "SensorData.h"
 #include "HeatingState.h"
 #include "boundary/button/Button.h"
 #include "boundary/potentiometer/Potentiometer.h"
@@ -15,7 +15,7 @@
 class HeatingSysTask : public Task {
     private:
         HomeState* homeState;
-        HomeSensorData* sensorData;
+        SensorData* sensorData;
         Button* heatBtn;
         Potentiometer* tempSelector;
         HeatingState state;
@@ -23,7 +23,7 @@ class HeatingSysTask : public Task {
         int timeoutStep;
 
     public:
-        HeatingSysTask(HomeState* homeState,HomeSensorData* sensorData);
+        HeatingSysTask(HomeState* homeState,SensorData* sensorData);
         void init(int timeoutExec);
         void tick();
 };

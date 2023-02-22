@@ -12,7 +12,7 @@
 #define MAX_LED_BRIGTH 255
 #define TRESHOLD_LIGHT 3
 
-LightTask::LightTask(HomeState* homeState, HomeSensorData* homeSensorData) {
+LightTask::LightTask(HomeState* homeState, SensorData* homeSensorData) {
     this->homeState = homeState;
     this->homeSensorData = homeSensorData;
     this->indoorLight = new Led(INDOOR_LIGHT_PIN);

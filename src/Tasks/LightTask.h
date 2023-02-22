@@ -2,7 +2,7 @@
 #define __LED_TASK_H__
 
 #include "HomeState.h"
-#include "HomeSensorData.h"
+#include "SensorData.h"
 #include "boundary/light/Light.h"
 #include "boundary/light/DimmLight.h"
 
@@ -10,14 +10,14 @@ class LightTask : public Task {
 
     private:
         HomeState* homeState;
-        HomeSensorData* homeSensorData;
+        SensorData* homeSensorData;
         Light* indoorLight;
         DimmLight* outdoorLight;
         void updateLight();
         bool checkSwitchOnLight(int extLightValue);
 
     public:
-        LightTask(HomeState* homeState, HomeSensorData* homeSensorData);
+        LightTask(HomeState* homeState, SensorData* homeSensorData);
         void init(int timeoutExec);
         void tick();
 };
