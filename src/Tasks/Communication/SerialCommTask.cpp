@@ -34,14 +34,18 @@ void SerialCommTask::sendData() {
 //{"temp": 0,"extLight": 0}
 void SerialCommTask::recvData() {
     if (Serial.available() > 0) {
+        String msg = Serial.readString();
+        //Serial.println(msg);
+
         StaticJsonDocument<96> doc;
-        DeserializationError error = deserializeJson(doc, Serial);
-       
+        DeserializationError error = deserializeJson(doc, msg);
+
         if (!error) {
             sensorData->temp = doc["temp"];
             sensorData->extLight = doc["extLight"];
         } else {
-            Serial.println("Errore lettura json sensori");
+            Serial.print("[domus-hub] errore json:");
+            Serial.println(error.c_str());
         }
     }
 }
