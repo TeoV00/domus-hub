@@ -8,7 +8,7 @@
 class Scheduler {
     Task* taskList[MAX_TASK];
     int taskAddingIdx;
-    int basePeriod;
+    unsigned int basePeriod;
     unsigned long int prevTime;
     unsigned long int curTime;
 

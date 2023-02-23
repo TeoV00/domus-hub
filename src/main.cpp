@@ -21,10 +21,10 @@ Scheduler sched;
 GarageTask* garageTask;
 DisplayTask* displayTask;
 LightTask* lightTask;
-SerialCommTask* serialCommTask;
 HeatingSysTask* heatSysTask;
 AlarmSysTask* alarmSysTask;
 BluetoothTask* bluetoothTask;
+SerialCommTask* serialCommTask;
 
 void setup() {
     Serial.begin(9600);
@@ -32,7 +32,7 @@ void setup() {
     sched.init(SCHED_PERIOD);
 
     displayTask = new DisplayTask(&homeState);
-    displayTask->init(500);
+    displayTask->init(800);
     sched.addTask(displayTask);
 
     lightTask = new LightTask(&homeState, &sensorData);
@@ -40,16 +40,12 @@ void setup() {
     sched.addTask(lightTask); 
 
     heatSysTask = new HeatingSysTask(&homeState, &sensorData);
-    heatSysTask->init(200);
+    heatSysTask->init(100);
     sched.addTask(heatSysTask);
 
     alarmSysTask = new AlarmSysTask(&homeState);
     alarmSysTask->init(ALARM_TASK_EXEC_TIMEOUT);
     sched.addTask(alarmSysTask);
-
-    serialCommTask = new SerialCommTask(&homeState, &sensorData);
-    serialCommTask->init(2000);
-    sched.addTask(serialCommTask);
     
     garageTask = new GarageTask(&homeState.garageState);
     garageTask->init(40);
@@ -58,6 +54,10 @@ void setup() {
     bluetoothTask = new BluetoothTask(&homeState);
     bluetoothTask->init(2000);
     sched.addTask(bluetoothTask);
+
+    serialCommTask = new SerialCommTask(&homeState, &sensorData);
+    serialCommTask->init(2000);
+    sched.addTask(serialCommTask);
 
 }
 
