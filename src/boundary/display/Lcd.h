@@ -7,6 +7,7 @@
 class Lcd : public Display {
     private:
         LiquidCrystal_I2C* lcd;
+        void resetView();
         
     public:
         Lcd(uint8_t addr);
@@ -15,7 +16,6 @@ class Lcd : public Display {
         void updateHeatTemp(unsigned int temp);
         void showAlarmAlertMsg();
         void showInitMessage();
-        void clear();
 };
 
 #endif

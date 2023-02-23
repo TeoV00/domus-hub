@@ -32,4 +32,5 @@ void DisplayTask::updateDisplay() {
     this->display->updateAlarmState(alarmPower);
     this->display->updateHeatState(homeState->heatSysPwr);
     this->display->updateHeatTemp(homeState->heatTemp);
+
 }

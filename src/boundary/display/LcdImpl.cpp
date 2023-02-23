@@ -15,8 +15,11 @@ Lcd::Lcd(uint8_t addr) {
 }
 
 void Lcd::updateAlarmState(PowerState alarmState) {
+    String alarmStr = "Alarm: ";
     this->lcd->setCursor(0,0);
-    this->lcd->print("Alarm: ");
+    this->lcd->print(alarmStr);
+    this->lcd->setCursor(15-alarmStr.length(),0);
+    this->lcd->print("             ");
     this->lcd->setCursor(7,0);
     this->lcd->print(alarmState == PowerState::ON ? ON_MSG : OFF_MSG);
 }
@@ -35,6 +38,8 @@ void Lcd::updateHeatTemp(unsigned int temp) {
     this->lcd->print(temp);
     this->lcd->setCursor(14,1);
     this->lcd->print((char)DEGREE_SYMBOL_ASCII);
+    this->lcd->setCursor(15,1);
+    this->lcd->print(" ");
 }
 
 void Lcd::showAlarmAlertMsg() {
@@ -45,12 +50,13 @@ void Lcd::showAlarmAlertMsg() {
 }
 
 void Lcd::showInitMessage() {
-    this->lcd->clear();
+    this->resetView();
     this->lcd->setCursor(0,0);
     this->lcd->print("Domus Hub");
     this->lcd->setCursor(0,1);
     this->lcd->print("Calibrazione...");
 }
 
-void Lcd::clear() {
+void Lcd::resetView() {
+    this->lcd->clear();
 }
