@@ -8,8 +8,8 @@
 #include "boundary/button/Button.h"
 #include "boundary/potentiometer/Potentiometer.h"
 
-#define MAX_HEAT_TEMP 26
-#define MIN_HEAT_TEMP 9
+#define MAX_HEAT_TEMP 19
+#define MIN_HEAT_TEMP 8
 #define TIMEOUT_HEATING_ON 8000
 
 class HeatingSysTask : public Task {
