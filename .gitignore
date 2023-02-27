@@ -5,3 +5,4 @@
 .vscode/ipch
 platformio.ini
 test/
+.DS_Store
